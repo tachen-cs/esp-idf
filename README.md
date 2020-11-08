@@ -1,5 +1,7 @@
 # Espressif IoT Development Framework
 
+* 源码写的太优秀了，有时间一定要多读读，等你弄懂这个project的源码的话，那你绝对可以从0开始玩嵌入式了，绝对的大神级别了
+
 * [中文版](./README_CN.md)
 
 ESP-IDF is the official development framework for the **ESP32** and **ESP32-S** Series SoCs provided for Windows, Linux and macOS.
