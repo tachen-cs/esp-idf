@@ -1,3 +1,7 @@
+// 源码写的太优秀了，有时间一定要多读读，等你弄懂这个project的源码的话，那你绝对可以从0开始玩嵌入式了，绝对的大神级别了
+// 这个源码可参考性太强了
+// 我从里面先看到了I2S的 task。
+
 // Copyright 2015-2019 Espressif Systems (Shanghai) PTE LTD
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -1160,7 +1164,7 @@ esp_err_t i2s_read(i2s_port_t i2s_num, void *dest, size_t size, size_t *bytes_re
     I2S_CHECK((i2s_num < I2S_NUM_MAX), "i2s_num error", ESP_ERR_INVALID_ARG);
     I2S_CHECK((size < I2S_MAX_BUFFER_SIZE), "size is too large", ESP_ERR_INVALID_ARG);
     I2S_CHECK((p_i2s_obj[i2s_num]->rx), "rx NULL", ESP_ERR_INVALID_ARG);
-    xSemaphoreTake(p_i2s_obj[i2s_num]->rx->mux, (portTickType)portMAX_DELAY);
+    xSemaphoreTake(p_i2s_obj[i2s_num]->rx->mux, (portTickType)portMAX_DELAY); // 请求互斥信号量 
 #ifdef CONFIG_PM_ENABLE
     esp_pm_lock_acquire(p_i2s_obj[i2s_num]->pm_lock);
 #endif
@@ -1186,6 +1190,6 @@ esp_err_t i2s_read(i2s_port_t i2s_num, void *dest, size_t size, size_t *bytes_re
 #ifdef CONFIG_PM_ENABLE
     esp_pm_lock_release(p_i2s_obj[i2s_num]->pm_lock);
 #endif
-    xSemaphoreGive(p_i2s_obj[i2s_num]->rx->mux);
+    xSemaphoreGive(p_i2s_obj[i2s_num]->rx->mux); // 交出互斥信号量
     return ESP_OK;
 }
